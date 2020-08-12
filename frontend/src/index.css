@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+table{
+  padding-bottom: 25px;
+}
+p{
+  color:red;
+  font-size:160%;
+  text-align:left;
+}
+table, th, td {
+  border: 1px solid black;
+  border-spacing: 15px;
+  padding: 50px;
+}
+th{
+  background: black;
+  color: #ffffff;
+}
+form {
+  margin: 2rem;
+}
+
+
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button2 {background-color: #008CBA;}
+
+.center {
+  margin: auto;
+  width: 50%;
+  /* border: 3px solid green; */
+  padding: 10px;
+}
+.left {
+  margin: left;
+  width: 50%;
+  /* border: 3px solid green; */
+  padding: 10px;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.alert {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  width: 40%;
+}
+
+#span3 {
+    height: 30rem !important;
+    overflow-y: auto;
+	  background-color: white;
+}
+#span3 thead th {
+  position: sticky;
+  top: 0;
+}
