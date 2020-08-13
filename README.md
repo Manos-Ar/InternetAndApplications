@@ -4,7 +4,7 @@
 
 Θα χρησιμοποιήσω τις τεχνολογίες:
 * Mysql
-* Javascript
+* Javascript(ReactJs)
 * Java(Spring)
 * Html
 * Css
