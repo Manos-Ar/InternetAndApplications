@@ -91,6 +91,7 @@ class Season extends Component{
         // console.log(response.status, response.statusText);
       if (response.ok){
           this.setState({
+						InvalidYear: false,
 						URLError:false,
 						isSubmitted: true
           });
