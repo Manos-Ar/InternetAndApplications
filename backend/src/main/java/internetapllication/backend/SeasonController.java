@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class SeasonController {
-	
+
 	@Autowired
 	private SeasonService service;
-	
-		
-	@GetMapping({"/NBA/{year}/{pos}/{index}/{limit}","/NBA///{index}/{limit}"})
+
+
+	@GetMapping({"/NBA/{year}/{pos}/{index}/{limit}"})
 	public ResponseEntity<List<Season>> findby(@PathVariable Integer year,@PathVariable String pos,@PathVariable String index,@PathVariable Integer limit) {
 		Pageable page = PageRequest.of(0, limit,Sort.by(index).descending());
 		switch(pos) {
