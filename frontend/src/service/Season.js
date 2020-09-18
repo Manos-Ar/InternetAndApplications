@@ -92,25 +92,29 @@ class Season extends Component{
 			}
 			if(Year==null) {
 					this.setState({
-						YearSubmit:true
+						YearSubmit:true,
+						InvalidYear: false
 					});
 					ErrorCheck = true;
 			}
 			else if(Year<1950 || Year>2017){
 					this.setState({
-						InvalidYear: true
+						InvalidYear: true,
+						YearSubmit:false
 					});
 					ErrorCheck = true;
 				}
 			if(Size==null) {
 					this.setState({
-						SizeSubmit:true
+						SizeSubmit:true,
+						InvalidSize: false
 					});
 					ErrorCheck = true;
 			}
 			else if(Size <=0){
 					this.setState({
-						InvalidSize: true
+						InvalidSize: true,
+						SizeSubmit:false
 					});
 					ErrorCheck = true;
 			}
