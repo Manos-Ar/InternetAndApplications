@@ -56,7 +56,7 @@ class Season extends Component{
 		}
 		// console.log("changed: "+[name]+" to "+value);
 		else{
-			if(name == "Year" || name == "Size"){
+			if(name === "Year" || name === "Size"){
 				this.setState({["Invalid"+name]:false})
 			}
 	    this.setState({
@@ -130,7 +130,6 @@ class Season extends Component{
         // console.log(response.status, response.statusText);
       if (response.ok){
           this.setState({
-						InvalidYear: false,
 						isSubmitted: true
           });
           // console.log(response.data);
