@@ -35,8 +35,12 @@ class Season extends Component{
       Size : null,
       Results : [],
 			InvalidYear: false,
-			URLError: false,
+			InvalidSize: false,
       isSubmitted: false,
+			PositionSubmit: false,
+			CriteriaSubmit: false,
+			YearSubmit: false,
+			SizeSubmit: false,
 
     };
   }
@@ -51,13 +55,16 @@ class Season extends Component{
 			})
 		}
 		// console.log("changed: "+[name]+" to "+value);
-		else
-    this.setState({
-			InvalidYear: false,
-			URLError:false,
-      isSubmitted: false,
-      [name] : value
-    });
+		else{
+			if(name == "Year" || name == "Size"){
+				this.setState({["Invalid"+name]:false})
+			}
+	    this.setState({
+				[name+"Submit"]: false,
+	      isSubmitted: false,
+	      [name] : value
+	    });
+		}
   };
 
   handleSubmit(e) {
@@ -65,23 +72,51 @@ class Season extends Component{
     e.preventDefault();
 
     // const url = 'http://localhost:8080/NBA';
+		var ErrorCheck = false
     const Year = this.state.Year;
     const Position = this.state.Position;
     const Criteria = this.state.Criteria;
     const Size = this.state.Size;
 
-    // console.log('Submitting...', Year, Position, Criteria, Size);
-		if(Year==null || Position==null || Criteria==null || Size==null) {
-				this.setState({
-					URLError: true
-				});
-		}
-		// console.log(url+Year+'/'+Position+'/'+Criteria+'/'+Size);
-		else if(Year<1950 || Year>2017){
-			this.setState({
-				InvalidYear: true
-			});
-		}
+			if(Position==null) {
+					this.setState({
+						PositionSubmit:true
+					});
+					ErrorCheck = true;
+			}
+			if(Criteria==null) {
+					this.setState({
+						CriteriaSubmit:true
+					});
+					ErrorCheck = true;
+			}
+			if(Year==null) {
+					this.setState({
+						YearSubmit:true
+					});
+					ErrorCheck = true;
+			}
+			else if(Year<1950 || Year>2017){
+					this.setState({
+						InvalidYear: true
+					});
+					ErrorCheck = true;
+				}
+			if(Size==null) {
+					this.setState({
+						SizeSubmit:true
+					});
+					ErrorCheck = true;
+			}
+			else if(Size <=0){
+					this.setState({
+						InvalidSize: true
+					});
+					ErrorCheck = true;
+			}
+
+		if(ErrorCheck)
+			return;
 		else{
     fetch(url+Year+'/'+Position+'/'+Criteria+'/'+Size,{
       method: 'GET',
@@ -92,7 +127,6 @@ class Season extends Component{
       if (response.ok){
           this.setState({
 						InvalidYear: false,
-						URLError:false,
 						isSubmitted: true
           });
           // console.log(response.data);
@@ -127,15 +161,21 @@ class Season extends Component{
 	}
 
   render(){
-		const InvalidYear = this.state.InvalidYear
-		const URLError = this.state.URLError;
+		const InvalidYear = this.state.InvalidYear;
+		const InvalidSize = this.state.InvalidSize;
 		const isSubmitted = this.state.isSubmitted;
+		const PositionSubmit = this.state.PositionSubmit;
+		const CriteriaSubmit = this.state.CriteriaSubmit;
+		const YearSubmit = this.state.YearSubmit;
+		const SizeSubmit = this.state.SizeSubmit;
 
 
 				return(
 		<div className="center">
     	<div className="container-lg" >
-    		<form className="was-validated" onSubmit={this.handleSubmit}>
+
+
+    		<form onSubmit={this.handleSubmit}>
 
     			<div className=''>
   					<h1>NBA Players Statistics</h1>
@@ -144,12 +184,12 @@ class Season extends Component{
 					<div id="Position">
 					  <div className="form-row">
 					    <div className="form-group col-md-10">
-					      <label htmlFor="validationDefault05">Position</label>
-					      <select required className="custom-select" name="Position" value={this.state.Position} onChange={this.handleChange}>
+					      <label >Position</label>
+					      <select name="Position" value={this.state.Position} onChange={this.handleChange}>
 					        <option disabled selected value> -- Select Position -- </option>
 					        {this.createSelect(optionsPositions)}
 					      </select>
-								<div className="invalid-feedback">Please select a value</div>
+									{(PositionSubmit)?<p class="error">Please select a Position.</p>:<div/>}
 					    </div>
 					  </div>
 					</div>
@@ -157,41 +197,46 @@ class Season extends Component{
 					<div id="Criteria">
 					  <div className="form-row">
 					    <div className="form-group col-md-10">
-					      <label htmlFor="validationDefault03">Criteria</label>
-					      <select required className="custom-select" name="Criteria" value={this.state.Criteria} onChange={this.handleChange}>
+					      <label >Criteria</label>
+					      <select  name="Criteria" value={this.state.Criteria} onChange={this.handleChange}>
 					        <option disabled selected value> -- Select Criteria -- </option>
 					        {this.createSelect(optionsCriteria)}
 					      </select>
-								<div className="invalid-feedback">Please select a value</div>
+								{(CriteriaSubmit)?<p class="error">Please select a Criteria.</p>:<div/>}
 					    </div>
 					  </div>
 					</div>
 
-					<div className="form-row">
-						<div className="form-group col-md-10">
-							<label htmlFor="validationDefault03">Year</label>
-							<input required className="form-control" name="Year" id="DateNone" type="text" placeholder="YYYY" value={this.state.Year} onChange={this.handleChange}
-								pattern="^[0-9]{4}"/>
-							<div className="invalid-feedback">Please input a value</div>
+					<div id="Year">
+						<div className="form-row">
+							<div className="form-group col-md-10">
+								<label >Year</label>
+								<input  name="Year"  type="text" placeholder="YYYY" value={this.state.Year} onChange={this.handleChange}/>
+								{(YearSubmit)?<p class="error">Please input a Year.</p>:<div/>}
+								{(InvalidYear)?<p class="error">Invalid Year . Please choose between 1950-2017</p>:<div/>}
+							</div>
 						</div>
 					</div>
 
-					<div className="form-row">
-						<div className="form-group col-md-10">
-							<label htmlFor="validationDefault03">Size</label>
-							<input required className="form-control" name="Size" id="DateNone" type="text" placeholder="XXX" value={this.state.Size} onChange={this.handleChange}
-								pattern="^[0-9]{3}|[0-9]{2}|[0-9]{1}"/>
-							<div className="invalid-feedback">Please input a value</div>
+					<div id="Size">
+						<div className="form-row">
+							<div className="form-group col-md-10">
+								<label >Size</label>
+								<input name="Size" type="text" placeholder="XXX" value={this.state.Size} onChange={this.handleChange}/>
+								{(SizeSubmit)?<p class="error">Please input a Size.</p>:<div/>}
+								{(InvalidSize)?<p class="error">The size must be larger of 0.</p>:<div/>}
+							</div>
 						</div>
 					</div>
 
-					<div className="left">
-			    	<button class="button button2" type="submit">Search</button>
+					<div id="Button">
+						<div className="left">
+				    	<button class="button" type="submit">Search</button>
+						</div>
 					</div>
+
     		</form>
 				<div>
-					{(URLError)?<p><strong>Error: </strong>Fill all fields</p>:<div/>}
-					{(InvalidYear)?<p>Invalid Year Range. Choose between 1950-2017</p>:<div/>}
 					{(isSubmitted)
 						?(
 					<div id="span3" className="table-responsive -sm">
@@ -200,7 +245,7 @@ class Season extends Component{
 								<tr>
 									<th scope="col">Year</th>
 									<th scope="col">Player</th>
-									<th scope="col">Positon</th>
+									<th scope="col">Position</th>
 									<th scope="col">Team</th>
 									<th scope="col">Number of Games</th>
 									<th scope="col">3Pointer%</th>

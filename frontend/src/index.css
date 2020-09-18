@@ -14,20 +14,20 @@ code {
 table{
   padding-bottom: 25px;
 }
-p{
-  color:red;
-  font-size:160%;
+
+
+p.error {
+  font-size:120%;
   text-align:left;
+  color: red;
 }
-table, th, td {
+table, td {
   border: 1px solid black;
   border-spacing: 15px;
   padding: 50px;
+  text-align: center;
 }
-th{
-  background: black;
-  color: #ffffff;
-}
+
 form {
   margin: 2rem;
 }
@@ -35,7 +35,7 @@ form {
 
 
 .button {
-  background-color: #4CAF50; /* Green */
+  background-color: #008CBA; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -47,18 +47,15 @@ form {
   cursor: pointer;
 }
 
-.button2 {background-color: #008CBA;}
 
 .center {
   margin: auto;
   width: 50%;
-  /* border: 3px solid green; */
   padding: 10px;
 }
 .left {
   margin: left;
   width: 50%;
-  /* border: 3px solid green; */
   padding: 10px;
 }
 
@@ -72,12 +69,7 @@ input[type=text], select {
   box-sizing: border-box;
 }
 
-.alert {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2rem;
-  width: 40%;
-}
+
 
 #span3 {
     height: 30rem !important;
@@ -85,6 +77,9 @@ input[type=text], select {
 	  background-color: white;
 }
 #span3 thead th {
+  background: black;
+  color: #ffffff;
   position: sticky;
   top: 0;
+  text-align: center;
 }
